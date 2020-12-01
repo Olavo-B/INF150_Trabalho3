@@ -1,0 +1,41 @@
+// Código2_ParteII_Gabriel
+
+byte A[8];
+int count  = 0;
+int seno;
+double x;
+double arg;
+double pi = acos(-1);
+void setup()
+{
+  int i;
+  pinMode(2, OUTPUT); pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT); pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT); pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT); pinMode(9, OUTPUT);
+  for (i=0; i<7; i++) { A[i] = 0; }
+  A[7]=1;
+  count = 0;
+  Serial.begin(9600);
+}
+
+void loop()
+{ 
+  for (int i=7; i>=0; i--) 
+     digitalWrite(i+2,A[i]);
+  count++;
+  x = count;
+  arg = 2.*pi*x/1024.;
+  seno = (sin(arg)+1.)*127.5;
+ 
+  A[0] =  seno%2;
+  A[1] = (seno/2)%2;
+  A[2] = (seno/4)%2;
+  A[3] = (seno/8)%2;
+  A[4] = (seno/16)%2;
+  A[5] = (seno/32)%2;
+  A[6] = (seno/64)%2;
+  A[7] = (seno/128)%2;
+
+  delay(3.9);
+}

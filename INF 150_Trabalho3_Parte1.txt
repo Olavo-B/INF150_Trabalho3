@@ -1,0 +1,38 @@
+byte A[8];
+int count  = 0;
+void setup()
+{
+  int i;
+  pinMode(2, OUTPUT); pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT); pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT); pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT); pinMode(9, OUTPUT);
+  for (i=0; i<8; i++) { A[i] = 0; }
+  count = 0;
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  for (int i=7; i>=0; i--) {Serial.print(A[i]);  }
+  Serial.println();
+  for (int i=7; i>=0; i--) {
+	digitalWrite(i+2,A[i]);
+  }
+  count++;
+  A[0] = A[0]?0:1;
+  if ( count %2 == 0) A[1] = A[1]?0:1;
+  if ( count %4 == 0) A[2] = A[2]?0:1;
+  if ( count %8 == 0) A[3] = A[3]?0:1;
+  if ( count %16 == 0) A[4] = A[4]?0:1;
+  if ( count %32 == 0) A[5] = A[5]?0:1;
+  if ( count %64 == 0) A[6] = A[6]?0:1;
+  if ( count %128 == 0) A[7] = A[7]?0:1;
+  
+  int a = analogRead(A0);
+  Serial.print("analogico digital (0-1023)=");
+  Serial.println(a);
+  Serial.print("0 a 5 volts = ");
+  Serial.println(5.0*a/1024); 
+  delay(100);
+}
